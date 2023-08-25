@@ -6,8 +6,6 @@
 #include "GameFramework/Character.h"
 
 
-DEFINE_LOG_CATEGORY_STATIC(LogSWeaponComponent, All, All);
-
 USWeaponComponent::USWeaponComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
@@ -18,6 +16,12 @@ void USWeaponComponent::Fire()
 {
 	if (!CurrentWeapon) return;
 	CurrentWeapon->Fire();
+}
+
+void USWeaponComponent::StopFire()
+{
+    if (!CurrentWeapon) return;
+    CurrentWeapon->StopFire();
 }
 
 void USWeaponComponent::BeginPlay()

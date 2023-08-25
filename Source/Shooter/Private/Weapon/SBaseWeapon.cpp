@@ -5,6 +5,7 @@
 
 #include "Engine/DamageEvents.h"
 #include "GameFramework/Character.h"
+#include "Perception/AISense_Damage.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogSBaseWeapon, All, All);
 
@@ -18,8 +19,13 @@ ASBaseWeapon::ASBaseWeapon()
 
 void ASBaseWeapon::Fire()
 {
-    UE_LOG(LogSBaseWeapon, Display, TEXT("Fire!"));
+    //UE_LOG(LogSBaseWeapon, Display, TEXT("Fire!"));
     MakeShot();
+    MakeNoise(1, Cast<APawn>(GetOwner()));
+}
+
+void ASBaseWeapon::StopFire()
+{
 }
 
 void ASBaseWeapon::BeginPlay()
@@ -49,6 +55,7 @@ void ASBaseWeapon::MakeShot()
     {
         GetWorld()->LineTraceSingleByChannel(HitResult, GetMuzzleWorldLocation(), TraceEnd, ECollisionChannel::ECC_Visibility);
     }
+    
 }
 
 void ASBaseWeapon::MakeDamage(const FHitResult& HitResult)
@@ -57,6 +64,8 @@ void ASBaseWeapon::MakeDamage(const FHitResult& HitResult)
     if (!DamagedActor) return;
 
     DamagedActor->TakeDamage(DamageAmount, FDamageEvent(), GetPlayerController(), this);
+    UAISense_Damage::ReportDamageEvent(GetWorld(), DamagedActor, GetOwner(), DamageAmount, DamagedActor->GetActorLocation(), HitResult.Location);
+
 }
 
 APlayerController* ASBaseWeapon::GetPlayerController() const

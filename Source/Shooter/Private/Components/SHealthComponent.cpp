@@ -47,6 +47,7 @@ void USHealthComponent::OnTakeAnyDamage(AActor* DamagedActor, float Damage, cons
 	{
 		GetWorld()->GetTimerManager().SetTimer(HealTimerHandle, this, &USHealthComponent::HealUpdate, HealUpdateTime, true, HealDelay);
 	}
+    //UAISense_Damage::ReportDamageEvent(GetWorld(), GetOwner(), Cast<APawn>(DamageCauser->GetOwner()), Damage, DamageCauser->GetActorLocation(), GetOwner()->GetActorLocation());
 }
 
 void USHealthComponent::HealUpdate()

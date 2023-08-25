@@ -17,6 +17,7 @@ public:
 	USWeaponComponent();
 
 	void Fire();
+    void StopFire();
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="Weapon")
 	TSubclassOf<ASBaseWeapon> WeaponClass;

@@ -8,63 +8,32 @@
 
 
 class UTextRenderComponent;
-class USpringArmComponent;
-class UCameraComponent;
-struct FInputActionValue;
-class UInputAction;
-class UInputMappingContext;
 class USWeaponComponent;
 class USHealthComponent;
 
 UCLASS()
 class SHOOTER_API ASBaseCharacter : public ACharacter
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	ASBaseCharacter();
+    ASBaseCharacter();
+    UFUNCTION(BlueprintCallable, Category="Movement")
+    float GetMovementDirection();
 
 protected:
-	virtual void BeginPlay() override;
-	virtual void Tick(float DeltaSeconds) override;
-	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+    virtual void BeginPlay() override;
+    virtual void Tick(float DeltaSeconds) override;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Inputs | IMC")
-	UInputMappingContext* DefaultMappingContext;
+    UPROPERTY(EditDefaultsOnly, Category = "Components")
+    USHealthComponent* HealthComponent;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Inputs | Actions")
-	UInputAction* MoveAction;
-
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Inputs | Actions")
-	UInputAction* TurnAction;
-
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Inputs | Actions")
-	UInputAction* FireAction;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	USpringArmComponent* SpringArmComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	UCameraComponent* CameraComponent;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Components")
-	USHealthComponent* HealthComponent;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Components")
-	UTextRenderComponent* HealthTextComponent;
-
-	UPROPERTY(EditDefaultsOnly, Category="Components")
-	USWeaponComponent* WeaponComponent;
-
-public:
-	UFUNCTION(BlueprintCallable, Category="Movement")
-	float GetMovementDirection();
+    UPROPERTY(EditDefaultsOnly, Category = "Components")
+    UTextRenderComponent* HealthTextComponent;
+    
+    virtual void OnDeath();
 
 private:
-	void Move(const FInputActionValue& Value);
-	void Turn(const FInputActionValue& Value);
-
-	void OnDeath();
-	void OnHealthChanged(float Health);
+    void OnHealthChanged(float Health);
 
 };

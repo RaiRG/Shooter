@@ -15,7 +15,7 @@ public:
 	ASBaseWeapon();
 
 	virtual void Fire();
-    
+    virtual void StopFire();
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	USkeletalMeshComponent* SkeletalMeshComponent;
