@@ -14,4 +14,6 @@ class SHOOTER_API ASGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	ASGameModeBase();
+
+    virtual void StartPlay() override;
 };

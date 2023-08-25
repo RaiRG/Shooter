@@ -20,6 +20,6 @@ public:
     
 private:
     APawn* GetPawn() const;
-    AActor* GetClosestActor(TArray<AActor*>& AllActors) const;
+    AActor* GetClosestEnemy(TArray<AActor*>& AllActors) const;
     
 };
